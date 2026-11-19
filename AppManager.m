@@ -1918,7 +1918,7 @@ static BOOL MCPWaitForURLOpenVerification(NSURL *url, NSString *previousBundleId
     NSString *ipaPath = packagePath;
     NSString *ipaBundleId = [self bundleIdFromIPA:ipaPath];
 
-#ifdef MCP_ROOTHIDE
+    // PATCH: TrollStore-style install (sign + install) on every package scheme.
     NSString *mcpRootPath = MCPResolvedJailbreakPath(@"/usr/bin/mcp-root");
     BOOL canUseMcpRoot = [fm isExecutableFileAtPath:mcpRootPath];
     NSString *rootHelperPath = MCPResolvedJailbreakPath(@"/usr/bin/mcp-roothelper");
@@ -1950,7 +1950,6 @@ static BOOL MCPWaitForURLOpenVerification(NSURL *url, NSString *previousBundleId
                 exitCode,
                 (unsigned long)MCPAppLogUTF8Length(output));
     }
-#endif
 
     // Method 1: Use mcp-appinst CLI (bundled with ios-mcp, works with mcp-appsync)
     NSString *appinstPath = MCPResolvedJailbreakPath(@"/usr/bin/mcp-appinst");
